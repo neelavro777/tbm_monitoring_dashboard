@@ -1,0 +1,70 @@
+<launch>
+    <!-- Launch the ROSBridge server -->
+    <node pkg="rosbridge_server" type="rosbridge_websocket" name="rosbridge_websocket">
+        <param name="port" value="9090" />
+    </node>
+
+    <!-- Launch temperature sensor nodes -->
+    <node pkg="tbm_monitoring" type="temp_sensor.py" name="temperature_sensor_1" output="screen">
+        <param name="sensor_id" value="1" />
+    </node>
+    <node pkg="tbm_monitoring" type="temp_sensor.py" name="temperature_sensor_2" output="screen">
+        <param name="sensor_id" value="2" />
+    </node>
+    <node pkg="tbm_monitoring" type="temp_sensor.py" name="temperature_sensor_3" output="screen">
+        <param name="sensor_id" value="3" />
+    </node>
+    <node pkg="tbm_monitoring" type="temp_sensor.py" name="temperature_sensor_4" output="screen">
+        <param name="sensor_id" value="4" />
+    </node>
+    <node pkg="tbm_monitoring" type="temp_sensor.py" name="temperature_sensor_5" output="screen">
+        <param name="sensor_id" value="5" />
+    </node>  
+
+    <!-- Launch Pressure sensor nodes -->
+    <node pkg="tbm_monitoring" type="pressure_sensor.py" name="pressure_sensor_1" output="screen">
+        <param name="sensor_id" value="1" />
+    </node>
+    <node pkg="tbm_monitoring" type="pressure_sensor.py" name="pressure_sensor_2" output="screen">
+        <param name="sensor_id" value="2" />
+    </node>
+    <node pkg="tbm_monitoring" type="pressure_sensor.py" name="pressure_sensor_3" output="screen">
+        <param name="sensor_id" value="3" />
+    </node>
+    <node pkg="tbm_monitoring" type="pressure_sensor.py" name="pressure_sensor_4" output="screen">
+        <param name="sensor_id" value="4" />
+    </node>
+    <node pkg="tbm_monitoring" type="pressure_sensor.py" name="pressure_sensor_5" output="screen">
+        <param name="sensor_id" value="5" />
+    </node>
+
+
+    <!-- Launch  motor control nodes -->
+    <node pkg="tbm_monitoring" type="motor_control_server.py" name="motor_control_server" output="screen"/>
+    
+    <node pkg="tbm_monitoring" type="web_motor_control.py" name="web_motor_control" output="screen"/>
+
+    <!-- Launch camera nodes -->
+    <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen">
+        <param name="video_device" value="/dev/video0" />
+        <param name="image_width" value="640" />
+        <param name="image_height" value="480" />
+        <param name="framerate" value="30" />
+        <param name="io_method" value="mmap" />
+    </node>
+
+
+    <node name="web_video_server" pkg="web_video_server" type="web_video_server" output="screen" /> 
+
+
+    <!--  Gas sensor -->
+    <node pkg="tbm_monitoring" type="gas_sensor.py" name="gas_sensor" output="screen">
+        <param name="sensor_id" value="1" />
+    </node>
+
+    <!-- Launch sensor processing node -->
+    <node pkg="tbm_monitoring" type="process_sensor_data.py" name="process_sensor_data" output="screen"/>
+
+    <!-- Launch the InfluxDB writer node -->
+    <node pkg="tbm_monitoring" type="write_to_influx.py" name="influx_writer" output="screen"/>
+</launch>
